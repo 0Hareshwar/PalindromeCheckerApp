@@ -1,13 +1,19 @@
 import java.util.Scanner;
 
-class FlexiblePalindrome {
+// Case-insensitive & space-ignored checker
+class CaseSpaceChecker {
 
-    // Palindrome check function
-    static boolean isPalindrome(String str) {
+    // Public method
+    public boolean checkPalindrome(String input) {
+
+        // Normalize string
+        String str = input.toLowerCase()
+                .replaceAll("[^a-z0-9]", "");
 
         int start = 0;
         int end = str.length() - 1;
 
+        // Palindrome check
         while (start < end) {
             if (str.charAt(start) != str.charAt(end))
                 return false;
@@ -17,22 +23,21 @@ class FlexiblePalindrome {
         }
         return true;
     }
+}
+
+// MAIN CLASS (required format)
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        CaseSpaceChecker checker = new CaseSpaceChecker();
 
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        // Step 1: Normalize string
-        String normalized = input
-                .toLowerCase()
-                .replaceAll("[^a-z0-9]", ""); // remove spaces & symbols
-
-        // Step 2: Check palindrome
-        if (isPalindrome(normalized))
-            System.out.println("Palindrome (Ignoring spaces & case)");
+        if (checker.checkPalindrome(input))
+            System.out.println("Palindrome (Ignoring case & spaces)");
         else
             System.out.println("Not a Palindrome");
 
