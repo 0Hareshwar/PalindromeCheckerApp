@@ -1,29 +1,82 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
+import java.util.Scanner;
 
-public class PalindromeCheckerApp {
+class PalindromeLinkedList {
+    static class Node {
+        char data;
+        Node next;
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    Node head = null;
+    void insert(char data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+    Node reverse(Node node) {
+        Node prev = null;
+        Node current = node;
+        Node next;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+    boolean isPalindrome() {
+
+        if (head == null || head.next == null)
+            return true;
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node secondHalf = reverse(slow.next);
+
+        // Compare halves
+        Node firstHalf = head;
+        Node tempSecond = secondHalf;
+
+        while (tempSecond != null) {
+            if (firstHalf.data != tempSecond.data)
+                return false;
+
+            firstHalf = firstHalf.next;
+            tempSecond = tempSecond.next;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
-
-        String original = "madam";
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for (int i = 0; i < original.length(); i++) {
-            deque.addLast(original.charAt(i));
+        Scanner sc = new Scanner(System.in);
+        PalindromeLinkedList list = new PalindromeLinkedList();
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+        for (char c : input.toCharArray()) {
+            list.insert(c);
         }
+        if (list.isPalindrome())
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not a Palindrome");
 
-        boolean isPalindrome = true;
-
-        while (deque.size() > 1) {
-            if (!deque.removeFirst().equals(deque.removeLast())) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        if (isPalindrome) {
-            System.out.println("The string is a Palindrome.");
-        } else {
-            System.out.println("The string is NOT a Palindrome.");
-        }
+        sc.close();
     }
 }
