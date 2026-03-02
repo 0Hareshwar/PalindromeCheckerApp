@@ -1,18 +1,20 @@
-import java.util.Stack;
+import java.util.Deque;
+import java.util.ArrayDeque;
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         String original = "madam";
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
 
         for (int i = 0; i < original.length(); i++) {
-            stack.push(original.charAt(i));
+            deque.addLast(original.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        for (int i = 0; i < original.length(); i++) {
-            if (original.charAt(i) != stack.pop()) {
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
