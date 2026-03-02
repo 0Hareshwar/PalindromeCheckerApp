@@ -1,20 +1,21 @@
 import java.util.Scanner;
 
-class RecursivePalindrome {
+class FlexiblePalindrome {
 
-    // Recursive function
-    static boolean isPalindrome(String str, int start, int end) {
+    // Palindrome check function
+    static boolean isPalindrome(String str) {
 
-        // Base condition
-        if (start >= end)
-            return true;
+        int start = 0;
+        int end = str.length() - 1;
 
-        // Compare characters
-        if (str.charAt(start) != str.charAt(end))
-            return false;
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end))
+                return false;
 
-        // Recursive call
-        return isPalindrome(str, start + 1, end - 1);
+            start++;
+            end--;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -24,10 +25,14 @@ class RecursivePalindrome {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
+        // Step 1: Normalize string
+        String normalized = input
+                .toLowerCase()
+                .replaceAll("[^a-z0-9]", ""); // remove spaces & symbols
 
-        if (result)
-            System.out.println("Palindrome");
+        // Step 2: Check palindrome
+        if (isPalindrome(normalized))
+            System.out.println("Palindrome (Ignoring spaces & case)");
         else
             System.out.println("Not a Palindrome");
 
