@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-// Service class
+// Service class (Encapsulation)
 class PalindromeChecker {
 
     // Public method exposed to users
     public boolean checkPalindrome(String input) {
 
-        // preprocessing (optional enhancement)
+        // preprocessing
         String str = input.toLowerCase()
                 .replaceAll("[^a-z0-9]", "");
 
@@ -26,8 +26,9 @@ class PalindromeChecker {
     }
 }
 
-// Main class
-public class Main {
+// MAIN CLASS (required format)
+public class PalindromeCheckerApp {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
